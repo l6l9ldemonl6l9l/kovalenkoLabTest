@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,11 +19,20 @@ public class allSteps {
     static WebDriver driver;
     static EpamTest epamTest;
 
+    @Before
+    public void init() {
+        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
+        driver = new ChromeDriver();
+        epamTest = new EpamTest(driver);
+    }
+    @After
+    public void stopDriver() {
+        driver.quit();
+    }
+
     //all
     @Given("User has opened main page")
     public void userHasOpenedMainPage() {
-        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.get("https://www.epam.com/");
@@ -30,13 +41,11 @@ public class allSteps {
     //check changing language
     @When("User clicks select a region and a language button")
     public void userClicksSelectLanguage() {
-        epamTest = new EpamTest(driver);
         epamTest.clickSelectLanguage();
     }
 
     @And("choose Ukraine")
     public void userChooseUkraine() {
-        epamTest = new EpamTest(driver);
         epamTest.chooseUkraine();
     }
 
@@ -44,13 +53,11 @@ public class allSteps {
     public void seeUkrainianMainPage() {
         CheckChangingLanguage checkChangingLanguage = new CheckChangingLanguage(driver);
         checkChangingLanguage.verifyPageIsOpened();
-        driver.quit();
     }
 
     //learn more button
     @When("User clicks learn more button")
     public void userClicksLearnMoreButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickLearnMore();
     }
 
@@ -64,7 +71,6 @@ public class allSteps {
     //contact us button
     @When("User clicks contact us button")
     public void userClicksContactUsButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickContactUs();
     }
 
@@ -72,13 +78,11 @@ public class allSteps {
     public void contactUsPageOpens() {
         ContactUsButton contactUs = new ContactUsButton(driver);
         contactUs.verifyPageIsOpened();
-        driver.quit();
     }
 
     //dream job button
     @When("User clicks find your dream job button")
     public void userClickDreamJobButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickDreamJob();
     }
 
@@ -86,13 +90,11 @@ public class allSteps {
     public void userFindDreamJob() {
         YourDreamJobButton yourDreamJobButton = new YourDreamJobButton(driver);
         yourDreamJobButton.verifyPageIsOpened();
-        driver.quit();
     }
 
     //instagram button
     @When("User clicks instagram button")
     public void userClickInstagramButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickInstagram();
     }
 
@@ -100,13 +102,11 @@ public class allSteps {
     public void userSeesInstagramLocations() {
         InstagramButton instagramButton = new InstagramButton(driver);
         instagramButton.verifyPageIsOpened();
-        driver.quit();
     }
 
     //telescopeai button
     @When("User clicks telescopeai button")
     public void userClickTelescopeaiButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickTelescopeai();
     }
 
@@ -114,25 +114,21 @@ public class allSteps {
     public void userSeesTelescopeaiPage() {
         TelescopeaiButton telescopeaiButton = new TelescopeaiButton(driver);
         telescopeaiButton.verifyPageIsOpened();
-        driver.quit();
     }
 
     //search button
     @When("User clicks search button")
     public void userClicksSearchButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickSearchButton();
     }
 
     @And("User check DevOps in search blockchain")
     public void userWritesSomething() {
-        epamTest = new EpamTest(driver);
         epamTest.writesSomething();
     }
 
     @And("User clicks find button")
     public void userClicksFindButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickFindButton();
     }
 
@@ -140,27 +136,22 @@ public class allSteps {
     public void seesResult() {
         CheckSearchesBlockhain checkSearchesBlockhain = new CheckSearchesBlockhain(driver);
         checkSearchesBlockhain.verifyPageIsOpened();
-        driver.quit();
     }
 
     //menu button
     @Given("User has opened small main page")
     public void userHasOpenedSmallMainPage() {
-        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.get("https://www.epam.com/");
     }
 
     @When("User clicks menu button")
     public void userClicksMenuButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickMenuButton();
     }
 
     @And("User clicks insights button in menu blockchain")
     public void userClicksInsightsButton() {
-        epamTest = new EpamTest(driver);
         epamTest.clickInsightsButton();
     }
 
@@ -168,6 +159,5 @@ public class allSteps {
     public void seeInsightsPageOpens() {
         InsightsButtonInMenuBlockchain insightsButtonInMenuBlockchain = new InsightsButtonInMenuBlockchain(driver);
         insightsButtonInMenuBlockchain.verifyPageIsOpened();
-        driver.quit();
     }
 }
